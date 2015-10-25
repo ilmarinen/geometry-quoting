@@ -1,0 +1,136 @@
+{
+  "Edges": {
+    "A": {
+      "Type": "LineSegment",
+      "Vertices": [
+        1,
+        2
+      ]
+    },
+    "B": {
+      "Type": "LineSegment",
+      "Vertices": [
+        5,
+        6
+      ]
+    },
+    "C": {
+      "Type": "LineSegment",
+      "Vertices": [
+        7,
+        8
+      ]
+    },
+    "D": {
+      "Type": "CircularArc",
+      "Vertices": [
+        3,
+        4
+      ],
+      "Center": {
+        "X": 4.0,
+        "Y": 1.5
+      },
+      "ClockwiseFrom": 4
+    },
+    "E": {
+      "Type": "CircularArc",
+      "Vertices": [
+        8,
+        1
+      ],
+      "Center": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "ClockwiseFrom": 8
+    },
+    "F": {
+      "Type": "CircularArc",
+      "Vertices": [
+        2,
+        3
+      ],
+      "Center": {
+        "X": 4.0,
+        "Y": 0.0
+      },
+      "ClockwiseFrom": 2
+    },
+    "G": {
+      "Type": "CircularArc",
+      "Vertices": [
+        5,
+        4
+      ],
+      "Center": {
+        "X": 4.0,
+        "Y": 3.0
+      },
+      "ClockwiseFrom": 4
+    },
+    "H": {
+      "Type": "CircularArc",
+      "Vertices": [
+        7,
+        6
+      ],
+      "Center": {
+        "X": 0.0,
+        "Y": 3.0
+      },
+      "ClockwiseFrom": 6
+    }
+  },
+
+  "Vertices": {
+    "1": {
+      "Position": {
+        "X": 1.0,
+        "Y": 0.0
+      }
+    },
+    "2": {
+      "Position": {
+        "X": 3.0,
+        "Y": 0.0
+      }
+    },
+    "3": {
+      "Position": {
+        "X": 4.0,
+        "Y": 1.0
+      }
+    },
+    "4": {
+      "Position": {
+        "X": 4.0,
+        "Y": 2.0
+      }
+    },
+    "5": {
+      "Position": {
+        "X": 3.0,
+        "Y": 3.0
+      }
+    },
+    "6": {
+      "Position": {
+        "X": 1.0,
+        "Y": 3.0
+      }
+    },
+    "7": {
+      "Position": {
+        "X": 0.0,
+        "Y": 2.0
+      }
+    },
+    "8": {
+      "Position": {
+        "X": 0.0,
+        "Y": 1.0
+      }
+    }
+  }
+}
