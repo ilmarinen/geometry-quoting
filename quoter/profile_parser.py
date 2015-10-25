@@ -1,10 +1,9 @@
 import json
-import numpy as np
 import helpers
 from profile_pieces import LineSegment, CircularArc
 
 
-def load_file(filename):
+def load_file(filename, optimize=False):
     pfile = open(filename, 'r')
     pfile_data = json.loads(pfile.read().replace('\n', ''))
     vertices = {}
@@ -35,15 +34,7 @@ def load_file(filename):
             for v in helpers.get_extremal_points_of_arc(circular_arc.a, circular_arc.b, circular_arc.center, circular_arc.radius):
                 extremal_points.append(v)
 
-    x_oords = [v[0] for v in vertices.values()] + [v[0] for v in extremal_points]
-    y_oords = [v[1] for v in vertices.values()] + [v[1] for v in extremal_points]
-
-    x_min = np.min(x_oords)
-    x_max = np.max(x_oords)
-    y_min = np.min(y_oords)
-    y_max = np.max(y_oords)
-    width = np.abs(x_max - x_min)
-    height = np.abs(y_max - y_min)
+    width, height = helpers.get_dimensions_rectangle(vertices.values() + extremal_points, optimize=optimize)
 
     return {
         'vertices': vertices,

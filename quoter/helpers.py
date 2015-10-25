@@ -1,3 +1,4 @@
+from scipy.spatial import ConvexHull
 import numpy as np
 import consts
 
@@ -90,3 +91,75 @@ def make_quote(data):
     total_quote = quote_stock + quote_lines + quote_arcs
 
     return total_quote
+
+
+def get_affine_transform_parameters(a, b):
+    theta = np.arctan2(b[1] - a[1], b[0] - a[0])
+    return [np.transpose(np.matrix((-a[0], -a[1]))), theta]
+
+
+def affine_transform(v, theta, vertices):
+    rotation_matrix = np.matrix([[np.cos(theta), -1 * np.sin(theta)], [np.sin(theta), np.cos(theta)]])
+    new_vertices = []
+    for vertex in vertices:
+        vertex_vec = np.transpose(np.matrix(vertex))
+        new_vertex = rotation_matrix * (vertex_vec - v)
+        new_vertices.append((new_vertex[0, 0], new_vertex[1, 0]))
+
+    return new_vertices
+
+
+def get_dimensions_rectangle(vertices, optimize=False):
+    if not optimize:
+        return get_dimensions_naive_rectangle(vertices)
+    else:
+        return get_dimensions_optimized_rectangle(vertices)
+
+
+def get_dimensions_naive_rectangle(vertices):
+    x_oords = [v[0] for v in vertices]
+    y_oords = [v[1] for v in vertices]
+
+    x_min = np.min(x_oords)
+    x_max = np.max(x_oords)
+    y_min = np.min(y_oords)
+    y_max = np.max(y_oords)
+    width = np.abs(x_max - x_min)
+    height = np.abs(y_max - y_min)
+
+    return [width, height]
+
+
+def get_dimensions_optimized_rectangle(vertices):
+    hull = ConvexHull(vertices)
+    width, height = get_dimensions_naive_rectangle(vertices)
+    min_area = width * height
+
+    for i in xrange(len(hull.vertices)):
+        a = vertices[hull.vertices[i]]
+        b = vertices[hull.vertices[(i + 1) % len(hull.vertices)]]
+        v, theta = get_affine_transform_parameters(a, b)
+        transformed_vertices = affine_transform(v, theta, vertices)
+        w, h = get_dimensions_naive_rectangle(transformed_vertices)
+        area = w * h
+        if area < min_area:
+            min_area = area
+            width = w
+            height = h
+
+    return width, height
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

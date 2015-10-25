@@ -64,10 +64,30 @@ def test_arc_extremals():
     assert helpers.get_line_length(b, (2, 1)) < 0.00001 or helpers.get_line_length(b, (2, 0)) < 0.00001 or helpers.get_line_length(b, (2.5, 0.5)) < 0.00001
 
 
+def test_optimized_rectangle():
+    vertices = [(0.0, 0.0), (0.0, 3.0), (5.0, 3.0), (5.0, 0.0)]
+    v = np.transpose(np.matrix((1, 1)))
+    theta = np.pi / 4
+    transformed_vertices = helpers.affine_transform(v, theta, vertices)
+    width, height = helpers.get_dimensions_optimized_rectangle(transformed_vertices)
+    optimized_area = width * height
+    width, height = helpers.get_dimensions_naive_rectangle(transformed_vertices)
+    naive_area = width * height
+    assert np.abs(optimized_area - 15.0) < 0.00001
+    assert np.abs(naive_area - 15.0) > 0.00001
+
+
 def test_make_quote():
     data_rect = load_file('./examples/Rectangle.json')
     data_extrude_circular_arc = load_file('./examples/ExtrudeCircularArc.json')
     data_circular_arc = load_file('./examples/CircularArc.json')
+    assert '{0:.2f}'.format(helpers.make_quote(data_rect)) == '14.10'
+    assert '{0:.2f}'.format(helpers.make_quote(data_extrude_circular_arc)) == '4.47'
+    assert '{0:.2f}'.format(helpers.make_quote(data_circular_arc)) == '4.06'
+
+    data_rect = load_file('./examples/Rectangle.json', optimize=True)
+    data_extrude_circular_arc = load_file('./examples/ExtrudeCircularArc.json', optimize=True)
+    data_circular_arc = load_file('./examples/CircularArc.json', optimize=True)
     assert '{0:.2f}'.format(helpers.make_quote(data_rect)) == '14.10'
     assert '{0:.2f}'.format(helpers.make_quote(data_extrude_circular_arc)) == '4.47'
     assert '{0:.2f}'.format(helpers.make_quote(data_circular_arc)) == '4.06'
