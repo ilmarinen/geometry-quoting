@@ -12,15 +12,9 @@ def get_angle(vertex):
     return theta
 
 
-def get_clockwise_arc_length(a, b, center=None, radius=None):
-    if center is None:
-        raise Exception('No Center', 'You need to specify a point to use as the center')
-
-    if radius is None:
-        raise Exception('No Radius', 'You need to specify the radius of your arc')
-
+def get_clockwise_angle(a, b, center):
     if a == b:
-        return (2 * np.pi * radius)
+        return (2 * np.pi)
     else:
         ca = (a[0] - center[0], a[1] - center[1])
         cb = (b[0] - center[0], b[1] - center[1])
@@ -28,9 +22,13 @@ def get_clockwise_arc_length(a, b, center=None, radius=None):
         theta_b = get_angle(cb)
 
         if theta_b <= theta_a:
-            return np.abs((theta_b - theta_a) * radius)
+            return (theta_b - theta_a)
         else:
-            return np.abs((2 * np.pi - (theta_b - theta_a)) * radius)
+            return (2 * np.pi - (theta_b - theta_a))
+
+
+def get_clockwise_arc_length(a, b, center, radius):
+    return np.abs(get_clockwise_angle(a, b, center) * radius)
 
 
 def get_line_length(a, b):
@@ -41,3 +39,15 @@ def get_line_length(a, b):
     sum_squares = (x_b - x_a) ** 2 + (y_b - y_a) ** 2
 
     return np.sqrt(sum_squares)
+
+
+def get_extremal_points_of_arc(a, b, center, radius):
+    num_quarters = int(np.ceil(np.abs(get_clockwise_angle(a, b, center) / (np.pi / 2))))
+    extremals = [a]
+    theta_zero = get_angle(a)
+    for i in xrange(num_quarters):
+        theta = theta_zero + (i + 1) * (- np.pi / 2)
+        extremal_point = (radius * (np.cos(theta) + center[0]), radius * (np.sin(theta) + center[1]))
+        extremals.append(extremal_point)
+
+    return extremals
