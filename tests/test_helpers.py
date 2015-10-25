@@ -24,14 +24,32 @@ def test_get_angle():
 
 
 def test_get_clockwise_arc_length():
-    assert np.abs((helpers.get_clockwise_arc_length((1, 0), (0, 1), center=(1, 1), radius=1)) - (np.pi / 2)) < 0.00001
-    assert np.abs((helpers.get_clockwise_arc_length((0, 1), (1, 0), center=(1, 1), radius=1)) - (3 * np.pi / 2)) < 0.00001
-    assert np.abs((helpers.get_clockwise_arc_length((1, 2), (1, 0), center=(1, 1), radius=1)) - (np.pi)) < 0.00001
-    assert np.abs((helpers.get_clockwise_arc_length((1, 0), (1, 2), center=(1, 1), radius=1)) - (np.pi)) < 0.00001
-    assert np.abs((helpers.get_clockwise_arc_length((1, 0), (1, 0), center=(1, 1), radius=1)) - (2 * np.pi)) < 0.00001
+    assert np.abs((helpers.get_clockwise_arc_length((1, 0), (0, 1), (1, 1), 1)) - (np.pi / 2)) < 0.00001
+    assert np.abs((helpers.get_clockwise_arc_length((0, 1), (1, 0), (1, 1), 1)) - (3 * np.pi / 2)) < 0.00001
+    assert np.abs((helpers.get_clockwise_arc_length((1, 2), (1, 0), (1, 1), 1)) - (np.pi)) < 0.00001
+    assert np.abs((helpers.get_clockwise_arc_length((1, 0), (1, 2), (1, 1), 1)) - (np.pi)) < 0.00001
+    assert np.abs((helpers.get_clockwise_arc_length((1, 0), (1, 0), (1, 1), 1)) - (2 * np.pi)) < 0.00001
 
 
 def test_get_line_length():
     assert np.abs(helpers.get_line_length((1, 1), (0, 1)) - 1) < 0.00001
     assert np.abs(helpers.get_line_length((1, 0), (0, 1)) - np.sqrt(2)) < 0.00001
     assert np.abs(helpers.get_line_length((0, 0), (1, 1)) - np.sqrt(2)) < 0.00001
+
+
+def test_arc_extremals():
+    extremals = helpers.get_extremal_points_of_arc((0, 1), (0, -1), (0, 0), 1)
+    assert len(extremals) == 3
+    a = extremals[0]
+    b = extremals[1]
+    c = extremals[2]
+    assert helpers.get_line_length(a, (0, 1)) < 0.00001 or helpers.get_line_length(a, (1, 0)) < 0.00001 or helpers.get_line_length(a, (0, -1)) < 0.00001
+    assert helpers.get_line_length(b, (0, 1)) < 0.00001 or helpers.get_line_length(b, (1, 0)) < 0.00001 or helpers.get_line_length(b, (0, -1)) < 0.00001
+    assert helpers.get_line_length(c, (0, 1)) < 0.00001 or helpers.get_line_length(c, (1, 0)) < 0.00001 or helpers.get_line_length(c, (0, -1)) < 0.00001
+
+    extremals = helpers.get_extremal_points_of_arc((0, 2), (2, 0), (0, 0), 2)
+    assert len(extremals) == 2
+    a = extremals[0]
+    b = extremals[1]
+    assert helpers.get_line_length(a, (0, 2)) < 0.00001 or helpers.get_line_length(a, (2, 0)) < 0.00001
+    assert helpers.get_line_length(b, (0, 2)) < 0.00001 or helpers.get_line_length(b, (2, 0)) < 0.00001
