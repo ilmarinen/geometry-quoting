@@ -29,3 +29,9 @@ def test_get_clockwise_arc_length():
     assert np.abs((helpers.get_clockwise_arc_length((1, 2), (1, 0), center=(1, 1), radius=1)) - (np.pi)) < 0.00001
     assert np.abs((helpers.get_clockwise_arc_length((1, 0), (1, 2), center=(1, 1), radius=1)) - (np.pi)) < 0.00001
     assert np.abs((helpers.get_clockwise_arc_length((1, 0), (1, 0), center=(1, 1), radius=1)) - (2 * np.pi)) < 0.00001
+
+
+def test_get_line_length():
+    assert np.abs(helpers.get_line_length((1, 1), (0, 1)) - 1) < 0.00001
+    assert np.abs(helpers.get_line_length((1, 0), (0, 1)) - np.sqrt(2)) < 0.00001
+    assert np.abs(helpers.get_line_length((0, 0), (1, 1)) - np.sqrt(2)) < 0.00001

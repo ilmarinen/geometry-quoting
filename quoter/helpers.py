@@ -31,3 +31,13 @@ def get_clockwise_arc_length(a, b, center=None, radius=None):
             return np.abs((theta_b - theta_a) * radius)
         else:
             return np.abs((2 * np.pi - (theta_b - theta_a)) * radius)
+
+
+def get_line_length(a, b):
+    x_a = a[0]
+    y_a = a[1]
+    x_b = b[0]
+    y_b = b[1]
+    sum_squares = (x_b - x_a) ** 2 + (y_b - y_a) ** 2
+
+    return np.sqrt(sum_squares)
