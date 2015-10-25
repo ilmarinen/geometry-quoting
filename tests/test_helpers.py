@@ -1,5 +1,6 @@
 import numpy as np
 from quoter import helpers
+from quoter.profile_parser import load_file
 
 
 v1 = (1, 0)
@@ -53,3 +54,20 @@ def test_arc_extremals():
     b = extremals[1]
     assert helpers.get_line_length(a, (0, 2)) < 0.00001 or helpers.get_line_length(a, (2, 0)) < 0.00001
     assert helpers.get_line_length(b, (0, 2)) < 0.00001 or helpers.get_line_length(b, (2, 0)) < 0.00001
+
+    extremals = helpers.get_extremal_points_of_arc((2, 1), (2, 0), (2, 0.5), 0.5)
+    assert len(extremals) == 3
+    a = extremals[0]
+    b = extremals[1]
+    c = extremals[2]
+    assert helpers.get_line_length(a, (2, 1)) < 0.00001 or helpers.get_line_length(a, (2, 0)) < 0.00001 or helpers.get_line_length(a, (2.5, 0.5)) < 0.00001
+    assert helpers.get_line_length(b, (2, 1)) < 0.00001 or helpers.get_line_length(b, (2, 0)) < 0.00001 or helpers.get_line_length(b, (2.5, 0.5)) < 0.00001
+
+
+def test_make_quote():
+    data_rect = load_file('./examples/Rectangle.json')
+    data_extrude_circular_arc = load_file('./examples/ExtrudeCircularArc.json')
+    data_circular_arc = load_file('./examples/CircularArc.json')
+    assert '{0:.2f}'.format(helpers.make_quote(data_rect)) == '14.10'
+    assert '{0:.2f}'.format(helpers.make_quote(data_extrude_circular_arc)) == '4.47'
+    assert '{0:.2f}'.format(helpers.make_quote(data_circular_arc)) == '4.06'
