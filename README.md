@@ -27,6 +27,14 @@ In both cases, the quote is echoed to the command line and is the dollar value e
 the profile out of a rectangle of stock.
 
 
+## Future Improvements
+
+Possible future improvements include:
+a. Improving the serializer so that the whole file does not have to be loaded into memory before it is parsed.
+b. Identifying areas in the profile which may be problematic to execute in practice.
+c. Drawing an image of the profile as it would appear when contained within the optimal bounding box.
+
+
 ## References
 1. Numpy Arctan2 [Numpy Arctan2 Documentation](http://docs.scipy.org/doc/numpy/reference/generated/numpy.arctan2.html)
 2. Datagenetics Blog Post on Bounding Boxes [Datagenetics](http://www.datagenetics.com/blog/march12014/index.html)
