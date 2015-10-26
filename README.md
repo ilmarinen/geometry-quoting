@@ -20,7 +20,7 @@ python calculate.py quote -f /path/to/profile.json
 
 In order to get a quote in which the dimensions of the optimal bounding rectangle have been used type:
 ```
-python calculate.py quote -f /path/tp/profile.json --optimize-rectangle True
+python calculate.py quote -f /path/tp/profile.json --optimize-rectangle
 ```
 
 In both cases, the quote is echoed to the command line and is the dollar value estimated for cutting

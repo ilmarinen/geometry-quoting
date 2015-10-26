@@ -91,3 +91,6 @@ def test_make_quote():
     assert '{0:.2f}'.format(helpers.make_quote(data_rect)) == '14.10'
     assert '{0:.2f}'.format(helpers.make_quote(data_extrude_circular_arc)) == '4.47'
     assert '{0:.2f}'.format(helpers.make_quote(data_circular_arc)) == '4.06'
+
+    data_missing_corners = load_file('./examples/MissingCorners.json')
+    assert '{0:.2f}'.format(helpers.make_quote(data_missing_corners)) == '15.41'
