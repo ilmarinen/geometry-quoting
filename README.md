@@ -29,7 +29,6 @@ the profile out of a rectangle of stock.
 
 ## Future Improvements
 
-Possible future improvements include:
 1. Improving the serializer so that the whole file does not have to be loaded into memory before it is parsed.
 2. Identifying areas in the profile which may be problematic to execute in practice.
 3. Drawing an image of the profile as it would appear when contained within the optimal bounding box.
